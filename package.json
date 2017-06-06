@@ -1,5 +1,5 @@
 {
-  "name": "redax",
+  "name": "redaxe",
   "version": "0.0.1",
   "description": "A simpler state container for front-end applications",
   "main": "lib/index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/jefflau/redax.git"
+    "url": "git+ssh://git@github.com/jefflau/redaxe.git"
   },
   "keywords": [
     "state",
@@ -18,9 +18,9 @@
   "author": "Jeff Lau",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jefflau/redax/issues"
+    "url": "https://github.com/jefflau/redaxe/issues"
   },
-  "homepage": "https://github.com/jefflau/redax#readme",
+  "homepage": "https://github.com/jefflau/redaxe#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
