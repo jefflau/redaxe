@@ -2,7 +2,7 @@
   "name": "redax",
   "version": "0.0.1",
   "description": "A simpler state container for front-end applications",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "compile": "babel --presets es2015,stage-0 -d lib/ src/",
     "prepublish": "npm run compile"
