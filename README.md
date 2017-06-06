@@ -52,6 +52,7 @@ Redax also supports middleware that takes the new state and can use it before th
 import React from 'react'
 import Redaxe from 'redaxe'
 import Main from './Main'
+import { fromJS } from 'Immutable'
 
 let initialData = {
   foo: bar,
@@ -79,6 +80,7 @@ export default app
 Reading state is easy as importing the app object. The data is saved under the `db` property of your app object. You could pass them through as props, but Redaxe will automatically re-render your app every time it updates so there is no need to use props.
 
 ```js
+import React from 'react'
 import app from './app'
 
 //Immutable
@@ -97,6 +99,7 @@ const Component = () =>
 Writing to the state is easy as well. Instead of mutating the object directly, you must call the `update` method and give it a new version of the state. If you mutate the state directly, then Redaxe will not call the render function for you and your app will not update.
 
 ```js
+import React from 'react'
 import app from './app'
 
 //Immutable
