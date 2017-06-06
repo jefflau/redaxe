@@ -1,0 +1,29 @@
+{
+  "name": "redax",
+  "version": "0.0.1",
+  "description": "A simpler state container for front-end applications",
+  "main": "index.js",
+  "scripts": {
+    "compile": "babel --presets es2015,stage-0 -d lib/ src/",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jefflau/redax.git"
+  },
+  "keywords": [
+    "state",
+    "react"
+  ],
+  "author": "Jeff Lau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefflau/redax/issues"
+  },
+  "homepage": "https://github.com/jefflau/redax#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
