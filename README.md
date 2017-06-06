@@ -7,7 +7,7 @@ Redaxe can be used with any front-end that allows you to 'refresh' your applicat
 ## Installation
 
 ```bash
-$ npm install redaxe
+$ npm install --save redaxe
 ```
 
 ## Setting up with React
