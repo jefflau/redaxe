@@ -1,4 +1,4 @@
-export let db
+export default let db
 export let render
 
 let middleware
