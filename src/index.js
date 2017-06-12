@@ -1,7 +1,6 @@
-export default let db
-export let render
-
-let middleware
+let db,
+    render,
+    middleware
 
 export function update (newData) {
   let data = this.middleware.reduce((state, middleware) => middleware(state), newData)
@@ -13,4 +12,10 @@ export function redaxeInit (initialData, renderer, middleware) {
   db = initialData
   render = renderer
   middleware = middleware
+}
+export default db
+export {
+  render,
+  update,
+  redaxeInit
 }
