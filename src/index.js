@@ -14,8 +14,8 @@ function redaxeInit (initialData, renderer, middleware) {
   middleware = middleware
 }
 
-export default db
 export {
+  db,
   render,
   update,
   redaxeInit
