@@ -12,4 +12,5 @@ export default function redaxeInit(initialData, renderer, middleware){
   db = initialData
   render = renderer
   middleware = middleware
+  render()
 }
