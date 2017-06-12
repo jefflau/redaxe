@@ -3,7 +3,7 @@ export let render
        let middleware
 
 export function update(newData){
-  let data = this.middleware.reduce((state, middleware) => middleware(state), newData)
+  let data = middleware.reduce((state, middleware) => middleware(state), newData)
   db = data;
   render()
 }
