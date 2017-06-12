@@ -1,12 +1,16 @@
-export default class Redax {
-  constructor(data, render, middleware = []) {
-    this.db = data
-    this.render = render
-    this.middleware = middleware
-  }
-  update(newData){
-    let data = this.middleware.reduce((state, middleware) => middleware(state), newData)
-    this.db = data;
-    this.render()
-  }
+export let db
+export let render
+
+let middleware
+
+export function update (newData) {
+  let data = this.middleware.reduce((state, middleware) => middleware(state), newData)
+  db = data;
+  render()
+}
+
+export function redaxeInit (initialData, renderer, middleware) {
+  db = initialData
+  render = renderer
+  middleware = middleware
 }
