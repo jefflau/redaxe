@@ -1,6 +1,6 @@
 # Redaxe
 
-Redaxe is a simpler state container for your front-end applications. It is inspired by Redux's global state, but gets rid of the application separate of actions and reducers. Instead the 'Redaxe' way is to import your state directly into each component and whenever you want to update the state, you call the `update` method and give it the new state. When update is called, Redaxe automatically re-renders your application. Currently Redaxe works best with Immutable, however you can give it normal Javascript objects instead if you wish.
+Redaxe is a simpler state container for your front-end applications. It is inspired by Redux's global state, but gets rid of the application separate of actions and reducers. Instead the 'Redaxe' way is to import your state directly into each component and whenever you want to update the state, you call the `update` function and give it the new state. When update is called, Redaxe automatically re-renders your application. Currently Redaxe works best with Immutable, however you can give it normal Javascript objects instead if you wish.
 
 Redaxe can be used with any front-end that allows you to 'refresh' your application, but currently has only been tested in React.
 
@@ -9,6 +9,13 @@ Redaxe can be used with any front-end that allows you to 'refresh' your applicat
 ```bash
 $ npm install --save redaxe
 ```
+
+## API
+
+Redaxe is super simple and only has a few exports:
+
+* update(newState) - function that takes your newState and updates the db
+* db - your state for reading (Do not write directly to the db)
 
 ## Setting up with React
 
@@ -20,29 +27,21 @@ The second is a function to
 //App.js
 
 import React from 'react'
-import Redaxe from 'redaxe'
+import RedaxeInit from 'redaxe'
 import Main from './Main' //Root React Component
 
 let initialData = {
   foo: bar,
 }
 
-const app = new Redaxe(
+RedaxeInit(
   Immutable.fromJS(initialData),
   () => ReactDOM.render(<Main />, document.getElementById('root'))
 )
 
-export default app
 ```
 
-Once you have setup your app object, you must then call the render function once to get your application running:
-
-```js
-//index.js
-import app from './app'
-
-app.render()
-```
+You must run your RedaxeInit first before anything else or nothing will run. From there you can export Redaxe's base functions to start building your app. Redaxe will call your render function automatically on setup so you don't have to call it yourself.
 
 ## Adding middleware
 
@@ -50,7 +49,7 @@ Redax also supports middleware that takes the new state and can use it before th
 
 ```js
 import React from 'react'
-import Redaxe from 'redaxe'
+import RedaxeInit from 'redaxe'
 import Main from './Main'
 import { fromJS } from 'Immutable'
 
@@ -64,15 +63,14 @@ function RedaxeImmutableLogger (state) {
   return state
 }
 
-let middleware = [RedaxImmutableLogger]
+let middleware = [RedaxeImmutableLogger]
 
-const app = new Redaxe(
+RedaxeInit(
   Immutable.fromJS(initialData),
   () => ReactDOM.render(<Main />, document.getElementById('root')),
   middleware
 )
 
-export default app
 ```
 
 ## Reading from the state
@@ -81,16 +79,16 @@ Reading state is easy as importing the app object. The data is saved under the `
 
 ```js
 import React from 'react'
-import app from './app'
+import { db } from 'redaxe'
 
 //Immutable
 const Component = () =>
-  <div>{app.db.get('foo')}</div>
+  <div>{db.get('foo')}</div>
 
 
 //Normal objects
 const Component = () =>
-  <div>{app.db.foo}</div>
+  <div>{db.foo}</div>
 
 ```
 
@@ -100,26 +98,26 @@ Writing to the state is easy as well. Instead of mutating the object directly, y
 
 ```js
 import React from 'react'
-import app from './app'
+import { db, update } from 'redaxe'
 
 //Immutable
 function handleStateChange() {
-  app.update(
-    app.db.set('foo', 'barbar')
+  update(
+    db.set('foo', 'barbar')
   )
 }
 //Normal Objects using spread operator
 function handleStateChange() {
-  app.update(
+  update(
     {
-      ...app.db,
+      ...db,
       foo: 'barbar'
     }
   )
 }
 
 const Component = () =>
-  <div>{app.db.get('foo')}</div>
+  <div>{db.get('foo')}</div>
   <button onClick={handleStateChange}>Change to bar</button>
 ```
 

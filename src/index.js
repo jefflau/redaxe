@@ -1,6 +1,6 @@
 export let db
-export let render
-       let middleware
+       let render,
+           middleware
 
 export function update(newData){
   let data = middleware.reduce((state, middleware) => middleware(state), newData)
