@@ -8,9 +8,9 @@ export function update(newData){
   render()
 }
 
-export default function redaxeInit(initialData, renderer, middleware){
+export default function redaxeInit(initialData, renderer, middlewares = []){
   db = initialData
   render = renderer
-  middleware = middleware
+  middleware = middlewares
   render()
 }
