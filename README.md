@@ -138,6 +138,7 @@ export function updateFoo(value){
 // app.js
 import React from 'react'
 import { db } from 'redaxe'
+import { updateFoo } from './updaters'
 
 function handleStateChange(value) {
   updateFoo(value)
