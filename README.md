@@ -121,4 +121,73 @@ const Component = () =>
   <button onClick={handleStateChange}>Change to bar</button>
 ```
 
-And that is pretty much it! When your app becomes larger and you end up reusing the same update functions over and over, you can abstract them into a separate file. In Redaxe we call them 'updaters' as they update the state.
+##Abstracting updaters to a separate file
+
+When your app becomes larger and you may end up reusing the same update functions over and over, you can abstract them into a separate file. In Redaxe we call them 'updaters' as they update the state. We will use immutable.js for the rest of these examples, but you could also use normal objects in the same way
+
+```js
+// updaters.js
+import { db, update } from 'redaxe'
+export function updateFoo(value){
+  update(
+    db.set('foo', value)
+  )
+}
+
+// app.js
+import React from 'react'
+import { db } from 'redaxe'
+
+//Immutable
+function handleStateChange(value) {
+  updateFoo(value)
+}
+
+const Component = () =>
+  <div>{db.get('foo')}</div>
+  <button onChange={(event) => handleStateChange(event.value)}>Change to bar</button>
+```
+
+
+##Abstractions to reducers to make things testable
+
+For a small application you might want to do away with tests, and that's why Redaxe is flexible in the way you gradually abstract your updaters and handlers into different files. However when your app grows you can abstract your state reduction to a different function to make things testable. Now that we have abstracted
+
+```js
+// updaters.js
+import { db, update } from 'redaxe'
+
+export const updateFooReducer = (db, value) =>
+  db.set('foo', value)
+
+export function updateFoo(value){
+  update(updateFooReducer(db, value))
+}
+
+//updaters.test.js using Jest
+
+import { updateFooReducer } from './updaters'
+import { fromJS } from 'immutable'
+
+test('fooReducer', () => {
+  let db = fromJS({
+    foo: 'bar'
+  })
+  expect(updateFooReducer(db, 'barbar')).toBe(fromJS({
+    foo: 'barbar'
+  }))
+})
+
+// app.js
+import React from 'react'
+import { db } from 'redaxe'
+import { updateFoo } from './updaters'
+
+function handleStateChange(value) {
+  updateFoo(value)
+}
+
+const Component = () =>
+  <div>{db.get('foo')}</div>
+  <button onChange={(event) => handleStateChange(event.value)}>Change to bar</button>
+```
