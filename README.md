@@ -116,9 +116,10 @@ function handleStateChange() {
   )
 }
 
-const Component = () =>
+const Component = () => <div>
   <div>{db.get('foo')}</div>
   <button onClick={handleStateChange}>Change to bar</button>
+</div>
 ```
 
 ## Abstracting updaters to a separate file
@@ -138,7 +139,6 @@ export function updateFoo(value){
 import React from 'react'
 import { db } from 'redaxe'
 
-//Immutable
 function handleStateChange(value) {
   updateFoo(value)
 }
@@ -165,7 +165,7 @@ export function updateFoo(value){
   update(updateFooReducer(db, value))
 }
 
-//updaters.test.js using Jest
+// updaters.test.js using Jest
 
 import { updateFooReducer } from './updaters'
 import { fromJS } from 'immutable'
