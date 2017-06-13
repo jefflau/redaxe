@@ -143,9 +143,10 @@ function handleStateChange(value) {
   updateFoo(value)
 }
 
-const Component = () =>
+const Component = () => <div>
   <div>{db.get('foo')}</div>
   <button onChange={(event) => handleStateChange(event.value)}>Change to bar</button>
+</div>
 ```
 
 
@@ -177,17 +178,4 @@ test('fooReducer', () => {
     foo: 'barbar'
   }))
 })
-
-// app.js
-import React from 'react'
-import { db } from 'redaxe'
-import { updateFoo } from './updaters'
-
-function handleStateChange(value) {
-  updateFoo(value)
-}
-
-const Component = () =>
-  <div>{db.get('foo')}</div>
-  <button onChange={(event) => handleStateChange(event.value)}>Change to bar</button>
 ```
