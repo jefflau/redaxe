@@ -1,13 +1,8 @@
 # Redaxe
 
-Redaxe is a simpler state container for your front-end applications. It is inspired by Redux's global state,
-but gets rid of the application separate of actions and reducers. Instead the 'Redaxe' way is to import your state
-directly into each component and whenever you want to update the state, you call the `update` function and give it
-the new state. When update is called, Redaxe automatically re-renders your application. Currently Redaxe works best
-with Immutable, however you can give it normal Javascript objects instead if you wish.
+Redaxe is a simpler state container for your front-end applications. It is inspired by Redux's global state, but gets rid of the application separate of actions and reducers. Instead the 'Redaxe' way is to import your state directly into each component and whenever you want to update the state, you call the `update` function and give it the new state. When update is called, Redaxe automatically re-renders your application. Currently Redaxe works best with Immutable, however you can give it normal Javascript objects instead if you wish.
 
-Redaxe can be used with any front-end that allows you to 'refresh' your application, but currently has only been tested
-with React.
+Redaxe can be used with any front-end that allows you to 'refresh' your application, but currently has only been tested with React.
 
 ## Installation
 
@@ -24,11 +19,7 @@ Redaxe is super simple and only has a few exports:
 
 ## Setting up with React
 
-To get things going we need to call `RedaxeInit` with two arguments.
-The first is the initial data for your application. This could be an empty object or an Immutable object.
-The second is a function that will be called everytime your app's state changes so that the DOM can be re-rendered.
-Redaxe makes no assumptions about your data, however we've found it easier to use Immutable's database like API for
-deeply nested maps/objects.
+To get things going we need to call `RedaxeInit` with two arguments. The first is the initial data for your application. This could be an empty object or an Immutable object. The second is a function that will be called everytime your app's state changes so that the DOM can be re-rendered. Redaxe makes no assumptions about your data, however we've found it easier to use Immutable's database like API for deeply nested maps/objects.
 
 
 ```js
@@ -161,10 +152,7 @@ const Component = () => <div>
 
 ## Abstraction to reducers to make things testable
 
-For a small application you might want to do away with tests, and that's why Redaxe is flexible in the way you gradually
-abstract your updaters and handlers into different files. However when your app grows you can abstract the part of your
-updaters that are directly responsible for updating the app state into reducer functions, that take the current state
-and the new piece of data and return the next state. This allows us to pass in any application state we want at test time.
+For a small application you might want to do away with tests, and that's why Redaxe is flexible in the way you gradually abstract your updaters and handlers into different files. However when your app grows you can abstract the part of your updaters that are directly responsible for updating the app state into reducer functions, that take the current state and the new piece of data and return the next state. This allows us to pass in any application state we want at test time.
 
 ```js
 // updaters.js
