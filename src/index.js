@@ -1,16 +1,22 @@
 export let db
        let render,
-           middleware
+           middleware,
+           renderFunc
 
 export function update(newData){
   let data = middleware.reduce((state, middleware) => middleware(state), newData)
   db = data;
-  render()
+  renderFunc()
 }
 
-export default function redaxeInit(initialData, renderer, middlewares = []){
+export default function createStore(initialData, middlewares = []){
   db = initialData
-  render = renderer
   middleware = middlewares
-  render()
+}
+
+export function render(renderer){
+    if(renderer){
+      renderFunc = renderer
+    }
+    renderFunc()
 }
