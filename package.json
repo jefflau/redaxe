@@ -1,6 +1,6 @@
 {
   "name": "redaxe",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A simpler state container for front-end applications",
   "main": "lib/index.js",
   "scripts": {
