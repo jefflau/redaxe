@@ -10,13 +10,13 @@ export function update(newData){
 }
 
 export default function createStore(initialData, middlewares = []){
-  db = initialData
-  middleware = middlewares
-}
-
-export function render(renderer){
+  function render(renderer){
     if(renderer){
       renderFunc = renderer
     }
     renderFunc()
+  }
+  db = initialData
+  middleware = middlewares
+  return render
 }

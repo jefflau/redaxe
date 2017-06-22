@@ -14,41 +14,46 @@ $ npm install --save redaxe
 
 Redaxe is super simple and only has a few exports:
 
-* update(newState) - function that takes your newState and updates the db
-* db - your state for reading (Do not write directly to the db)
+* `createStore(initialData: Object, middleware: ?Array) returns render: Function` - default export to create store
+* `update(newState)` - function that takes your newState and updates the db
+* `db` - your state for reading (Do not write directly to the db)
 
 ## Setting up with React
 
-To get things going we need to call `RedaxeInit` with two arguments. The first is the initial data for your application. This could be an empty object or an Immutable object. The second is a function that will be called everytime your app's state changes so that the DOM can be re-rendered. Redaxe makes no assumptions about your data, however we've found it easier to use Immutable's database like API for deeply nested maps/objects.
-
+To get things going we need to call `createStore` with your initial state. The first is the initial data for your application. This could be an empty object or an Immutable object.
 
 ```js
 //App.js
 
-import React from 'react'
-import RedaxeInit from 'redaxe'
-import Main from './Main' //Root React Component
+import createStore from 'redaxe'
 
 let initialData = {
   foo: bar,
 }
 
-RedaxeInit(
-  Immutable.fromJS(initialData),
+const render = createStore(Immutable.fromJS(initialData))
+
+export default render
+
+//Index.js
+import React from 'react'
+import render from './app'
+import Main from './Main' //Root React Component
+
+render(
   () => ReactDOM.render(<Main />, document.getElementById('root'))
 )
 
 ```
 
-You must run your RedaxeInit first before anything else or nothing will run. From there you can export Redaxe's base functions to start building your app. Redaxe will call your render function automatically on setup so you don't have to call it yourself.
+You must run your createStore to setup your database first before anything else or nothing will run. The createStore will return a render function for your app where you can inject your own renderer into it that will run when the App updates. For React that is the `ReactDOM.render`. If you are using `react-redaxe` to `connect()` your db to your components, you must create your store before you import any components as the db won't have been initialised then.
 
 ## Adding middleware
 
-Redax also supports middleware that takes the new state and can use it before the data has been updated to the database or rendered to the client. The third parameter is an array of the middleware functions. Here we can see a simple example with a logger function. You can add your own layer such as syncing data to localstorage.
+Redax also supports middleware that takes the new state and can use it before the data has been updated to the database or rendered to the client. The second parameter is an array of the middleware functions. Here we can see a simple example with a logger function. You can add your own layer such as syncing data to local storage.
 
 ```js
-import React from 'react'
-import RedaxeInit from 'redaxe'
+import createStore from 'redaxe'
 import Main from './Main'
 import { fromJS } from 'Immutable'
 
@@ -64,9 +69,8 @@ function RedaxeImmutableLogger (state) {
 
 let middleware = [RedaxeImmutableLogger]
 
-RedaxeInit(
+createStore(
   Immutable.fromJS(initialData),
-  () => ReactDOM.render(<Main />, document.getElementById('root')),
   middleware
 )
 
