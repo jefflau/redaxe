@@ -46,7 +46,7 @@ render(
 
 ```
 
-You must run your createStore to setup your database first before anything else or nothing will run. The createStore will return a render function for your app where you can inject your own renderer into it that will run when the App updates. For React that is the `ReactDOM.render`. If you are using `react-redaxe` to `connect()` your db to your components, you must create your store before you import any components as the db won't have been initialised then.
+You must run your createStore to setup your database first before anything else or nothing will run. The createStore will return a render function for your app where you can inject your own renderer into it that will run when the App updates. For React that is the `ReactDOM.render`. If you are using [`react-redaxe`](https://github.com/jefflau/react-redaxe) to `connect()` your db to your components, you must create your store before you import any components as the db won't have been initialised then.
 
 ## Adding middleware
 
@@ -183,3 +183,7 @@ test('fooReducer', () => {
   }))
 })
 ```
+
+##Complimentary Packages
+
+* [`react-redaxe`](https://github.com/jefflau/react-redaxe) - React helpers for Redaxe
