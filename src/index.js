@@ -11,9 +11,7 @@ export function update(newData){
 
 export default function createStore(initialData, middlewares = []){
   function render(renderer){
-    if(renderer){
-      renderFunc = renderer
-    }
+    renderFunc = renderer
     renderFunc()
   }
   db = initialData
